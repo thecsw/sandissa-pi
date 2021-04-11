@@ -1,8 +1,8 @@
 
 # MQTT certificates
 CA_CERT = "./../keys/ca/ca.crt"
-CLIENT_CERT = "./../client/client.crt"
-CLIENT_KEY = "./../client/client.key"
+CLIENT_CERT = "./../keys/client/client.crt"
+CLIENT_KEY = "./../keys/client/client.key"
 TLS_VERSION = 2
 
 # MQTT broker options
