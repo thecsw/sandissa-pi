@@ -22,23 +22,30 @@ def on_message(client, userdata, msg):
         GPIO.output(11, GPIO.LOW)
 
 
-client = mqtt.Client(client_id=kitty_config.CLIENT_ID)
-client.on_connect = on_connect
-client.on_message = on_message
+def main():
+    client = mqtt.Client(client_id=kitty_config.CLIENT_ID)
+    client.on_connect = on_connect
+    client.on_message = on_message
 
-# update cert paths
-client.tls_set(
-    ca_certs=kitty_config.CA_CERT,
-    certfile=kitty_config.CLIENT_CERT,
-    keyfile=kitty_config.CLIENT_KEY,
-    tls_version=kitty_config.TLS_VERSION,
-)
+    # update cert paths
+    client.tls_set(
+        ca_certs=kitty_config.CA_CERT,
+        certfile=kitty_config.CLIENT_CERT,
+        keyfile=kitty_config.CLIENT_KEY,
+        tls_version=kitty_config.TLS_VERSION,
+    )
 
-# set the username and password
-client.username_pw_set(username=kitty_config.USERNAME, password=kitty_config.PASSWORD)
+    # set the username and password
+    client.username_pw_set(
+        username=kitty_config.USERNAME, password=kitty_config.PASSWORD
+    )
 
-# update host to be broker host
-client.connect(kitty_config.HOSTNAME, kitty_config.PORT, 60)
+    # update host to be broker host
+    client.connect(kitty_config.HOSTNAME, kitty_config.PORT, 60)
 
-client.loop_forever()
-GPIO.cleanup()
+    client.loop_forever()
+    GPIO.cleanup()
+
+
+if __name__ == "__main__":
+    main()
